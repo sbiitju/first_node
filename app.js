@@ -21,6 +21,19 @@ app.post('/students',(req,res)=>{
                 res.send(s);
         })       
 });
+
+
+app.get("/students/:id",(req,res)=>{
+        const id = parseInt(req.params.id);
+        db.getStudents().then(students => {
+                const student = students.students.find( s => s.id ===id);
+                if(!student) res.status(404).send("No Data Found");
+                else{
+                        res.send(student);
+                }
+        });
+
+});
 // const server = http.createServer((request,response)=>{
 //         if (request.url === '/') {
 //                 response.write("Shahin Bashar");
